@@ -9,12 +9,16 @@ import com.thalmic.myo.*;
 import com.thalmic.myo.AbstractDeviceListener;
 import com.thalmic.myo.Hub;
 import com.thalmic.myo.Myo;
-import com.thalmic.myo.Vector3;
 
 public class main {  
+	public static Hub hub = new Hub("com.example.HelloMyo");;
+	
     public static void main(String[] args) {
+	Myo myo = hub.waitForMyo(10000);
+	    
       SwingUtilities.invokeLater(new Runnable() {
     	  public void run() {
+    		  hub.run(1000 / 20); // needed for myo
         	  final int frameWidth = 800;
         	  final int frameHeight = 600;
         	  JFrame startMain;
@@ -32,6 +36,6 @@ public class main {
         	  	
           }
       });
-     
+    
     }
 }
