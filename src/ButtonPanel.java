@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 public class ButtonPanel extends JPanel {
 	static JButton erase = new JButton("Erase");
 	static JButton clear = new JButton("Clear");
-	JButton draw = new JButton("Draw");
+	static JButton save = new JButton("Save");
 	
 	public ButtonPanel() throws IOException {
 		setLayout(new GridBagLayout());
@@ -20,7 +20,7 @@ public class ButtonPanel extends JPanel {
 		
 		gc.gridx = 0;
 		gc.gridy = 0;
-		add(draw, gc);
+		add(save, gc);
 		
 		gc.gridx = 1;
 		gc.gridy = 0;

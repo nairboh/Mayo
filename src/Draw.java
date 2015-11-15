@@ -1,6 +1,9 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.*;
 
+import javax.imageio.*;
 import javax.swing.*;
 
 import com.thalmic.myo.*;
@@ -95,6 +98,12 @@ public class Draw extends JComponent{
 	        }
 	    });
 		
+		ButtonPanel.save.addActionListener(new java.awt.event.ActionListener(){
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				save();
+			}
+		});
+		
 		addMouseListener(new MouseAdapter(){
 			public void mousePressed(MouseEvent e){
 				//System.out.println("used");
@@ -146,6 +155,15 @@ public class Draw extends JComponent{
 	//runs the clear() method
 	//then it draws the image
 
+	public void save() {
+		File outputfile = new File("image.jpg");
+		try {
+			ImageIO.write((BufferedImage)image, "jpg", outputfile);
+			//System.out.println("saved");
+		} catch (IOException e) {
+		
+		}
+	}
 
 	public void clear(){
 		graphics2D.setPaint(Color.white);

@@ -12,6 +12,9 @@ public class main {
 	
 	static int font = 10;
 	static hubLoop h;
+	static final int frameWidth = 800;
+	static final int frameHeight = 600;
+	static JFrame startMain;
 	
     public static void main(String[] args) {
     
@@ -19,10 +22,9 @@ public class main {
     	  public void run() {
     		  h = new hubLoop();
     		  (new Thread(h)).start();
-    		  Myo myo = hubLoop.hub.waitForMyo(10000);
+    		  Myo myo = hubLoop.hub.waitForMyo(1000);
     		  
-        	  final int frameWidth = 800;
-        	  final int frameHeight = 600;
+        	  
         	  JFrame startMain;
         	  Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         	  try{
@@ -40,4 +42,8 @@ public class main {
       });
 
     }
+    
+//    public static MainFrame getMainFrame() {
+//    	return (MainFrame) startMain;
+//    }
 }

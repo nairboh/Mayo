@@ -13,16 +13,21 @@ public class MainFrame extends JFrame{
 	JButton thin;
 	JButton bold;
 	JButton eraser;
+	MainPanel m;
 	
 	public MainFrame(String title) throws IOException {
 		super(title);
 		setLayout(new BorderLayout());
-		final MainPanel m = new MainPanel();
+		m = new MainPanel();
 
 		final Container c = getContentPane();
 		c.add(m, BorderLayout.CENTER);
 		
 		
+	}
+	
+	public MainPanel getPanel () {
+		return m;
 	}
 
 }
