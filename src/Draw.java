@@ -3,14 +3,12 @@ import java.awt.event.*;
 
 import javax.swing.*;
 import com.thalmic.myo.*;
-import com.thalmic.myo.AbstractDeviceListener;
-import com.thalmic.myo.Hub;
-import com.thalmic.myo.Myo;
-import com.thalmic.myo.Vector3;
 
 public class Draw extends JComponent{
+
 	final int X_MULT = 100;
 	final int Y_MULT = 100;
+	int oldX, oldY, newX, newY;
 	
 	Image image;
 	//this is gonna be your image that you draw on
@@ -21,10 +19,12 @@ public class Draw extends JComponent{
 	public static Vector3 position = new Vector3();
 	public static Vector3 velocity = new Vector3();
 
+	
 
 	//Now for the constructors
 	public Draw(){
 		setDoubleBuffered(false);
+
 			
 	    main.hub.addListener(new AbstractDeviceListener() {
 	        @Override
@@ -40,6 +40,35 @@ public class Draw extends JComponent{
 	            
 	            if(graphics2D != null)
 					graphics2D.drawLine(oldX,oldY,newX,newY);
+		
+		/*addMouseListener(new MouseAdapter(){
+			public void mousePressed(MouseEvent e){
+				oldX = e.getX();
+				oldY = e.getY();
+			}
+		});*/
+		
+		
+		main.hub.addListener(new AbstractDeviceListener() {
+	        @Override
+	        public void onAccelerometerData(Myo myo, long timestamp, Vector3 vector) {
+	        	velocity = vectorAdd (velocity, vectorClearNoise(vector));
+	            position = vectorAdd (velocity,position);
+	            oldX = (int) position.getY();
+	            oldY = (int) position.getZ();
+	        }
+	    });
+		
+		
+		
+		//if the mouse is pressed it sets the oldX & oldY
+		//coordinates as the mouses x & y coordinates
+		addMouseMotionListener(new MouseMotionAdapter(){
+			public void mouseDragged(MouseEvent e){
+				currentX = e.getX();
+				currentY = e.getY();
+				if(graphics2D != null)
+				graphics2D.drawLine(oldX, oldY, currentX, currentY);
 				repaint();
 	        }
 	    });
@@ -110,5 +139,12 @@ public class Draw extends JComponent{
 		repaint();
 	}
 	//green paint
-
+	
+	private Vector3 vectorClearNoise (Vector3 v) {
+		return new Vector3 (v.getX() >= 1 ? v.getX() : 0, v.getY() >= 1 ? v.getY() : 0, v.getZ() >= 1 ? v.getZ() : 0);
+	}
+	
+	private Vector3 vectorAdd (Vector3 v1, Vector3 v2) {
+		return new Vector3 (v1.getX() + v2.getX(), v1.getY() + v2.getY(),v1.getZ() + v2.getZ());
+	}
 }
