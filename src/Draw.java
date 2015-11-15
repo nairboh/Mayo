@@ -47,6 +47,34 @@ public class Draw extends JComponent{
 		        }
 		    }
 		});
+		/*Huuuuuuuuu
+		addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				int key = e.getKeyCode();
+
+				System.out.println(colour);
+				if(key == KeyEvent.VK_C) {
+				colour++;
+				switch(colour) {
+				case 0:
+					black();
+					break;
+				case 1:
+					red();
+					break;
+				case 2:
+					blue();
+					break;
+				case 3:
+					green();
+					break;
+				default:
+					black();
+					colour = 0;
+				}
+			}
+			}
+		});*/
 		
 		ButtonPanel.erase.addActionListener(new java.awt.event.ActionListener() {
 	        public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -14,5 +14,6 @@ public class MainPanel extends JPanel {
 		final ButtonPanel bp = new ButtonPanel();
 		add(drawArea, BorderLayout.CENTER);
 		add(bp, BorderLayout.SOUTH);
+		drawArea.setFocusable(true);
 	}
 }
