@@ -63,6 +63,8 @@ public class Draw extends JComponent{
 						case 3:
 							green();
 							break;
+						case 4:
+							break;
 						default:
 							black();
 							colour = 0;
@@ -80,7 +82,6 @@ public class Draw extends JComponent{
 		});
 		
 	
-			
 			
 
 		
@@ -135,6 +136,9 @@ public class Draw extends JComponent{
 		//while the mouse is dragged it sets currentX & currentY as the mouses x and y
 		//then it draws a line at the coordinates
 		//it repaints it and sets oldX and oldY as currentX and currentY
+	}
+	public int colourValue() {
+		return colour;
 	}
 
 	public void paintComponent(Graphics g){
