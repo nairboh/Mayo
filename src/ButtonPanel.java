@@ -7,8 +7,8 @@ import javax.swing.JPanel;
 
 
 public class ButtonPanel extends JPanel {
-	JButton erase = new JButton("Erase");
-	JButton clear = new JButton("Clear");
+	static JButton erase = new JButton("Erase");
+	static JButton clear = new JButton("Clear");
 	JButton draw = new JButton("Draw");
 	
 	public ButtonPanel() throws IOException {
@@ -29,6 +29,5 @@ public class ButtonPanel extends JPanel {
 		gc.gridx = 2;
 		gc.gridy = 0;
 		add(clear, gc);
-		
 	}
 }
