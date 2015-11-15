@@ -1,66 +1,43 @@
 import java.awt.*;
 import java.awt.event.*;
-
 import javax.swing.*;
+
 import com.thalmic.myo.*;
+import com.thalmic.myo.enums.PoseType;
 
 public class Draw extends JComponent{
-
-	final int X_MULT = 100;
-	final int Y_MULT = 100;
-	int oldX, oldY, newX, newY;
-	
 	Image image;
 	//this is gonna be your image that you draw on
 	Graphics2D graphics2D;
 	//this is what we'll be using to draw on
+	int currentX, currentY, oldX, oldY;
 	//these are gonna hold our mouse coordinates
-	
-	public static Vector3 position = new Vector3();
-	public static Vector3 velocity = new Vector3();
-
-	
 
 	//Now for the constructors
 	public Draw(){
 		setDoubleBuffered(false);
-
+		
+		
+		hubLoop.hub.addListener(new AbstractDeviceListener() {  
+			boolean isPose = false;
 			
-	    main.hub.addListener(new AbstractDeviceListener() {
-	        @Override
-	        public void onAccelerometerData(Myo myo, long timestamp, Vector3 vector) {
-	        	velocity = vectorAdd (velocity, vectorClearNoise(vector));
-	        	
-	        	int oldX =(int)(Math.round(position.getY() * X_MULT));
-	        	int oldY =(int)(Math.round(position.getZ()*Y_MULT));
-	        	position = vectorAdd (velocity,position);
-	        	int newX =(int)(Math.round(position.getY() * X_MULT));
-	        	int newY =(int)(Math.round(position.getZ()*Y_MULT));
-	        	System.out.println(position);
-	            
-	            if(graphics2D != null)
-					graphics2D.drawLine(oldX,oldY,newX,newY);
+		    @Override
+		    public void onPose(Myo myo, long timestamp, Pose pose) {
+		        isPose = (pose.getType() == PoseType.FINGERS_SPREAD);
+		    }
+		    
+		    // put shit here
+		});
+		
+		
+		
 		
 		/*addMouseListener(new MouseAdapter(){
 			public void mousePressed(MouseEvent e){
 				oldX = e.getX();
 				oldY = e.getY();
 			}
-		});*/
-		
-		
-		main.hub.addListener(new AbstractDeviceListener() {
-	        @Override
-	        public void onAccelerometerData(Myo myo, long timestamp, Vector3 vector) {
-	        	velocity = vectorAdd (velocity, vectorClearNoise(vector));
-	            position = vectorAdd (velocity,position);
-	            oldX = (int) position.getY();
-	            oldY = (int) position.getZ();
-	        }
-	    });
-		
-		
-		
+		});
 		//if the mouse is pressed it sets the oldX & oldY
 		//coordinates as the mouses x & y coordinates
 		addMouseMotionListener(new MouseMotionAdapter(){
@@ -70,19 +47,16 @@ public class Draw extends JComponent{
 				if(graphics2D != null)
 				graphics2D.drawLine(oldX, oldY, currentX, currentY);
 				repaint();
-	        }
-	    });
-	    
-				
+				oldX = currentX;
+				oldY = currentY;
+			}
 
-	}
-	
-	public static Vector3 vectorClearNoise (Vector3 v) {
-		return new Vector3 (v.getX() >= 1 ? v.getX() : 0, v.getY() >= 1 ? v.getY() : 0, v.getZ() >= 1 ? v.getZ() : 0);
-	}
-	
-	public static Vector3 vectorAdd (Vector3 v1, Vector3 v2) {
-		return new Vector3 (v1.getX() + v2.getX(), v1.getY() + v2.getY(),v1.getZ() + v2.getZ());
+		});
+		//while the mouse is dragged it sets currentX & currentY as the mouses x and y
+		//then it draws a line at the coordinates
+		//it repaints it and sets oldX and oldY as currentX and currentY
+		 *
+		 */
 	}
 
 	public void paintComponent(Graphics g){
@@ -139,12 +113,5 @@ public class Draw extends JComponent{
 		repaint();
 	}
 	//green paint
-	
-	private Vector3 vectorClearNoise (Vector3 v) {
-		return new Vector3 (v.getX() >= 1 ? v.getX() : 0, v.getY() >= 1 ? v.getY() : 0, v.getZ() >= 1 ? v.getZ() : 0);
-	}
-	
-	private Vector3 vectorAdd (Vector3 v1, Vector3 v2) {
-		return new Vector3 (v1.getX() + v2.getX(), v1.getY() + v2.getY(),v1.getZ() + v2.getZ());
-	}
+
 }

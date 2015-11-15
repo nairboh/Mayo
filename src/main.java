@@ -9,33 +9,36 @@ import com.thalmic.myo.*;
 import com.thalmic.myo.AbstractDeviceListener;
 import com.thalmic.myo.Hub;
 import com.thalmic.myo.Myo;
+import com.thalmic.myo.Vector3;
 
 public class main {  
-	public static Hub hub = new Hub("com.example.HelloMyo");;
+	public static hubLoop h;
+	public static int frameWidth = 800;
+	public static int frameHeight = 600;
 	
     public static void main(String[] args) {
-	Myo myo = hub.waitForMyo(10000);
-	    
       SwingUtilities.invokeLater(new Runnable() {
     	  public void run() {
-    		  hub.run(1000 / 20); // needed for myo
-        	  final int frameWidth = 800;
-        	  final int frameHeight = 600;
+    		  h = new hubLoop();
+    		  (new Thread(h)).start();
+    		  
+    		  Myo myo = hubLoop.hub.waitForMyo(10000);
+
         	  JFrame startMain;
         	  Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        	  try{
-        		  startMain = new MainFrame("Mayo");
+        	  
+        	  try {
+        		  startMain = new MainFrame("Mayo Drawing Board");
         		  startMain.setResizable(false);
         		  startMain.setSize(frameWidth, frameHeight);
         		  startMain.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        		  startMain.setLocationRelativeTo(null);
         		  startMain.setVisible(true);
-        		  startMain.setLocation(screenSize.width / 2 - frameWidth / 2, screenSize.height / 2 - frameHeight / 2);
         	  } catch(IOException ioe) {
 
         	  }
         	  	
           }
       });
-    
     }
 }
