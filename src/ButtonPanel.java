@@ -35,6 +35,10 @@ public class ButtonPanel extends JPanel {
 		gc.gridx = 2;
 		gc.gridy = 0;
 		add(clear, gc);
+		
+		gc.gridx = 3;
+		gc.gridy = 0;
+		add(colour, gc);
 	}
 	
 	public void colourChange(int c) {

@@ -6,7 +6,6 @@ public class hubLoop implements Runnable {
 	/**
      * Thread for looping
      */
-    @Override
     public void run() {
     	while (true) {
     		hub.run(1000 / 20);
