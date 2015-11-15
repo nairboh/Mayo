@@ -63,7 +63,7 @@ public class Draw extends JComponent{
 						case 3:
 							green();
 							break;
-						case 4:
+						case 5:
 							break;
 						default:
 							black();
@@ -89,6 +89,7 @@ public class Draw extends JComponent{
 	        public void actionPerformed(java.awt.event.ActionEvent evt) {
 	        	//graphics2D.setStroke(new BasicStroke(main.font + 10));
 	        	graphics2D.setPaint(Color.white);
+	        	colour = 5;
 	        	repaint();
 	        }
 	    });
