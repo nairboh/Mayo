@@ -2,9 +2,6 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-import com.thalmic.myo.*;
-import com.thalmic.myo.enums.PoseType;
-
 public class Draw extends JComponent{
 	Image image;
 	//this is gonna be your image that you draw on
@@ -16,23 +13,7 @@ public class Draw extends JComponent{
 	//Now for the constructors
 	public Draw(){
 		setDoubleBuffered(false);
-		
-		
-		hubLoop.hub.addListener(new AbstractDeviceListener() {  
-			boolean isPose = false;
-			
-		    @Override
-		    public void onPose(Myo myo, long timestamp, Pose pose) {
-		        isPose = (pose.getType() == PoseType.FINGERS_SPREAD);
-		    }
-		    
-		    // put shit here
-		});
-		
-		
-		
-		
-		/*addMouseListener(new MouseAdapter(){
+		addMouseListener(new MouseAdapter(){
 			public void mousePressed(MouseEvent e){
 				oldX = e.getX();
 				oldY = e.getY();
@@ -55,8 +36,6 @@ public class Draw extends JComponent{
 		//while the mouse is dragged it sets currentX & currentY as the mouses x and y
 		//then it draws a line at the coordinates
 		//it repaints it and sets oldX and oldY as currentX and currentY
-		 *
-		 */
 	}
 
 	public void paintComponent(Graphics g){

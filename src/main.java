@@ -5,40 +5,29 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-import com.thalmic.myo.*;
-import com.thalmic.myo.AbstractDeviceListener;
-import com.thalmic.myo.Hub;
-import com.thalmic.myo.Myo;
-import com.thalmic.myo.Vector3;
 
 public class main {  
-	public static hubLoop h;
-	public static int frameWidth = 800;
-	public static int frameHeight = 600;
-	
     public static void main(String[] args) {
+    
       SwingUtilities.invokeLater(new Runnable() {
     	  public void run() {
-    		  h = new hubLoop();
-    		  (new Thread(h)).start();
-    		  
-    		  Myo myo = hubLoop.hub.waitForMyo(10000);
-
+        	  final int frameWidth = 800;
+        	  final int frameHeight = 600;
         	  JFrame startMain;
         	  Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        	  
-        	  try {
-        		  startMain = new MainFrame("Mayo Drawing Board");
-        		  startMain.setResizable(false);
+        	  try{
+        		  startMain = new MainFrame("Mayo");
         		  startMain.setSize(frameWidth, frameHeight);
+        		  startMain.setResizable(false);
         		  startMain.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        		  startMain.setLocationRelativeTo(null);
         		  startMain.setVisible(true);
+        		  startMain.setLocation(screenSize.width / 2 - frameWidth / 2, screenSize.height / 2 - frameHeight / 2);
         	  } catch(IOException ioe) {
 
         	  }
         	  	
           }
       });
+
     }
 }
