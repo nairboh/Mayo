@@ -12,6 +12,7 @@ public class Draw extends JComponent{
 	Graphics2D graphics2D;
 	//this is what we'll be using to draw on
 	int currentX, currentY, oldX, oldY;
+	int colour = 0;
 	
 	//these are gonna hold our mouse coordinates
 
@@ -31,50 +32,54 @@ public class Draw extends JComponent{
 		hubLoop.hub.addListener(new AbstractDeviceListener() {  
 		    @Override
 		    public void onPose(Myo myo, long timestamp, Pose pose) {
+		    	//boolean reset = false;
 		    	//System.out.println("not retarded");
 		        switch (pose.getType()) {
 		        	case WAVE_IN:
 		        		thin();
+		        	//	reset = true;
 		        		break;
 		        	case WAVE_OUT:
 		        		thick();
+		        	//	reset = true;
 		        		break;
 		        	case FINGERS_SPREAD:
-		        		
+		        	//	reset = true;
+		        		//System.out.println(colour);
+						colour++;
+						switch(colour) {
+						case 0:
+							black();
+							break;
+						case 1:
+							red();
+							break;
+						case 2:
+							blue();
+							break;
+						case 3:
+							green();
+							break;
+						default:
+							black();
+							colour = 0;
+						}
 		        		break;
 		        	default:
 		        		break;
 		        }
+		        
+		        if (pose.getType() != PoseType.FIST) {
+		        	oldX = -1;
+		        	oldY = -1;
+		        }
 		    }
 		});
-		/*Huuuuuuuuu
-		addKeyListener(new KeyAdapter() {
-			public void keyPressed(KeyEvent e) {
-				int key = e.getKeyCode();
+		
+	
+			
+			
 
-				System.out.println(colour);
-				if(key == KeyEvent.VK_C) {
-				colour++;
-				switch(colour) {
-				case 0:
-					black();
-					break;
-				case 1:
-					red();
-					break;
-				case 2:
-					blue();
-					break;
-				case 3:
-					green();
-					break;
-				default:
-					black();
-					colour = 0;
-				}
-			}
-			}
-		});*/
 		
 		ButtonPanel.erase.addActionListener(new java.awt.event.ActionListener() {
 	        public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -92,6 +97,7 @@ public class Draw extends JComponent{
 		
 		addMouseListener(new MouseAdapter(){
 			public void mousePressed(MouseEvent e){
+				//System.out.println("used");
 				oldX = e.getX();
 				oldY = e.getY();
 			}
@@ -102,14 +108,16 @@ public class Draw extends JComponent{
 		//coordinates as the mouses x & y coordinates
 		addMouseMotionListener(new MouseMotionAdapter(){
 			public void mouseDragged(MouseEvent e){
-				graphics2D.setStroke(new BasicStroke(main.font));
-				currentX = e.getX();
-				currentY = e.getY();
-				if(graphics2D != null)
-				graphics2D.drawLine(oldX, oldY, currentX, currentY);
-				repaint();
-				oldX = currentX;
-				oldY = currentY;
+				if (oldX != -1) {
+					graphics2D.setStroke(new BasicStroke(main.font));
+					currentX = e.getX();
+					currentY = e.getY();
+					if(graphics2D != null)
+						graphics2D.drawLine(oldX, oldY, currentX, currentY);
+					repaint();
+					oldX = currentX;
+					oldY = currentY;
+				}
 			}
 
 		});
