@@ -1,3 +1,4 @@
+package gui;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -10,9 +11,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 public class MainFrame extends JFrame{
-	JButton thin;
-	JButton bold;
-	JButton eraser;
 	MainPanel m;
 	
 	public MainFrame(String title) throws IOException {
@@ -22,12 +20,5 @@ public class MainFrame extends JFrame{
 
 		final Container c = getContentPane();
 		c.add(m, BorderLayout.CENTER);
-		
-		
 	}
-	
-	public MainPanel getPanel () {
-		return m;
-	}
-
 }

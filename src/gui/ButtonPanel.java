@@ -1,3 +1,4 @@
+package gui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -68,7 +69,20 @@ public class ButtonPanel extends JPanel {
 			colourLabel.setText(" ");
 			colour.setBackground(Color.GREEN);
 			break;
+		case 4:
+			colourLabel.setText(" ");
+			colour.setBackground(Color.MAGENTA);
+			break;
 		case 5:
+			colourLabel.setText(" ");
+			colour.setBackground(Color.YELLOW);
+			break;
+		case 6:
+			colourLabel.setText(" ");
+			colour.setBackground(Color.ORANGE);
+			break;
+			
+		case 8:
 			colourLabel.setText(" ");
 			colour.setBackground(Color.WHITE);
 			colourLabel.setText("Erase");

@@ -1,12 +1,10 @@
+package gui;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.swing.*;
-
-import com.sun.xml.internal.ws.api.server.Container;
-
 
 public class MainPanel extends JPanel {
 	public MainPanel() throws IOException {

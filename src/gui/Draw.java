@@ -1,3 +1,4 @@
+package gui;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
@@ -9,46 +10,28 @@ import javax.swing.*;
 import com.thalmic.myo.*;
 import com.thalmic.myo.enums.PoseType;
 
+import myo.hubLoop;
+
 public class Draw extends JComponent{
 	Image image;
-	//this is gonna be your image that you draw on
 	Graphics2D graphics2D;
-	//this is what we'll be using to draw on
 	int currentX, currentY, oldX, oldY;
 	int colour = 0;
-	
-	//these are gonna hold our mouse coordinates
 
-	public void thick () {
-		main.font += 10;
-	}
-	
-	public void thin () {
-		if (main.font - 10 >= 10) main.font -= 10;
-		else main.font = 1;
-	}
-	
-	//Now for the constructors
 	public Draw(){
 		setDoubleBuffered(false);
 
 		hubLoop.hub.addListener(new AbstractDeviceListener() {  
 		    @Override
 		    public void onPose(Myo myo, long timestamp, Pose pose) {
-		    	//boolean reset = false;
-		    	//System.out.println("not retarded");
 		        switch (pose.getType()) {
 		        	case WAVE_IN:
 		        		thin();
-		        	//	reset = true;
 		        		break;
 		        	case WAVE_OUT:
 		        		thick();
-		        	//	reset = true;
 		        		break;
 		        	case FINGERS_SPREAD:
-		        	//	reset = true;
-		        		//System.out.println(colour);
 						colour++;
 						switch(colour) {
 						case 0:
@@ -63,7 +46,18 @@ public class Draw extends JComponent{
 						case 3:
 							green();
 							break;
+						case 4:
+							magenta();
+							break;
 						case 5:
+							yellow();
+							break;
+						case 6:
+							orange();
+							break;
+							
+						case 8:
+							// erase
 							break;
 						default:
 							black();
@@ -81,15 +75,10 @@ public class Draw extends JComponent{
 		    }
 		});
 		
-	
-			
-
-		
 		ButtonPanel.erase.addActionListener(new java.awt.event.ActionListener() {
 	        public void actionPerformed(java.awt.event.ActionEvent evt) {
-	        	//graphics2D.setStroke(new BasicStroke(main.font + 10));
 	        	graphics2D.setPaint(Color.white);
-	        	colour = 5;
+	        	colour = 8;
 	        	repaint();
 	        }
 	    });
@@ -108,15 +97,11 @@ public class Draw extends JComponent{
 		
 		addMouseListener(new MouseAdapter(){
 			public void mousePressed(MouseEvent e){
-				//System.out.println("used");
 				oldX = e.getX();
 				oldY = e.getY();
 			}
 		});
 		
-		
-		//if the mouse is pressed it sets the oldX & oldY
-		//coordinates as the mouses x & y coordinates
 		addMouseMotionListener(new MouseMotionAdapter(){
 			public void mouseDragged(MouseEvent e){
 				if (oldX != -1) {
@@ -132,12 +117,17 @@ public class Draw extends JComponent{
 			}
 
 		});
-		
-		
-		//while the mouse is dragged it sets currentX & currentY as the mouses x and y
-		//then it draws a line at the coordinates
-		//it repaints it and sets oldX and oldY as currentX and currentY
 	}
+	
+	public void thick () {
+		main.font += 10;
+	}
+	
+	public void thin () {
+		if (main.font - 10 >= 10) main.font -= 10;
+		else main.font = 1;
+	}
+	
 	public int colourValue() {
 		return colour;
 	}
@@ -152,19 +142,11 @@ public class Draw extends JComponent{
 		}
 		g.drawImage(image, 0, 0, null);
 	}
-	//this is the painting bit
-	//if it has nothing on it then
-	//it creates an image the size of the window
-	//sets the value of Graphics as the image
-	//sets the rendering
-	//runs the clear() method
-	//then it draws the image
 
 	public void save() {
 		File outputfile = new File("image.jpg");
 		try {
 			ImageIO.write((BufferedImage)image, "jpg", outputfile);
-			//System.out.println("saved");
 		} catch (IOException e) {
 		
 		}
@@ -176,34 +158,39 @@ public class Draw extends JComponent{
 		graphics2D.setPaint(Color.black);
 		repaint();
 	}
-	//this is the clear
-	//it sets the colors as white
-	//then it fills the window with white
-	//thin it sets the color back to black
+
 	public void red(){
 		graphics2D.setPaint(Color.red);
 		repaint();
 	}
-	//this is the red paint
+
 	public void black(){
 		graphics2D.setPaint(Color.black);
 		repaint();
 	}
-	//black paint
+
 	public void magenta(){
 		graphics2D.setPaint(Color.magenta);
 		repaint();
 	}
-	//magenta paint
+
 	public void blue(){
 		graphics2D.setPaint(Color.blue);
 		repaint();
 	}
-	//blue paint
+
 	public void green(){
 		graphics2D.setPaint(Color.green);
 		repaint();
 	}
-	//green paint
-
+	
+	public void yellow(){
+		graphics2D.setPaint(Color.yellow);
+		repaint();
+	}
+	
+	public void orange() {
+		graphics2D.setPaint(Color.orange);
+		repaint();
+	}
 }
