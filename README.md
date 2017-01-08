@@ -15,4 +15,5 @@ Note: This splash screen was purposely meant to look strange (This was a hackath
 
 
 Here is a video demonstration:
+
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/o-mH6ScYlmU/0.jpg)](https://www.youtube.com/watch?v=o-mH6ScYlmU)
